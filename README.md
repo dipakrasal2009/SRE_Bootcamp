@@ -35,3 +35,50 @@ logging.basicConfig(level=logging.INFO)
 logging.info("Student created: %s", new_student.name)
 
 # SRE_Bootcamp
+
+# Student API (Flask)
+
+## 🐳 Docker
+
+Build Docker Image:
+
+```bash
+make build
+
+Run the container with environment variables:
+```
+make run
+```
+Tag and push:
+```
+make tag-latest
+make push
+```
+🧪 Healthcheck
+```
+curl http://localhost:5000/healthcheck
+```
+
+🧬 Image Info
+Multi-stage build
+
+Small image size (~40MB)
+
+Tags: student-api:v1.0.0 (no latest tag)
+
+
+—
+
+✅ Summary
+
+You now have:
+
+- ✅ Multi-stage Dockerfile
+- ✅ Minimal image size
+- ✅ Environment variable support
+- ✅ SemVer tagging
+- ✅ Automated Makefile
+- ✅ Clean README instructions
+
+Let me know if you want to Docker Compose this or deploy to AWS/GCP next.
+
