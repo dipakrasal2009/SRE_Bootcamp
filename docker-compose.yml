@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_PATH=/data/students.db
+    volumes:
+      - ./data:/data
+    depends_on:
+      - migrate
+
+  migrate:
+    image: python:3.10-slim
+    volumes:
+      - ./migrations:/migrations
+      - ./data:/data
+    working_dir: /migrations
+    entrypoint: ["sh", "-c", "apt-get update && apt-get install -y sqlite3 && sqlite3 /data/students.db < init.sql"]
+

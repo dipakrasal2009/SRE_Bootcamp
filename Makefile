@@ -1,17 +1,24 @@
-APP_NAME := student-api
-VERSION := 4.0.0
-IMAGE := $(APP_NAME):v$(VERSION)
+.PHONY: db build run run-api stop clean logs
+
+db:
+	echo "Starting DB container..."
+	docker compose up -d migrate
 
 build:
-	docker build -t $(IMAGE) .
+	echo "Building REST API image..."
+	docker compose build api
 
-run:
-	docker run -it --rm -p 5000:5000 --env-file .env $(IMAGE)
+run-api:
+	echo "Running API container..."
+	docker compose up -d api
 
-tag-latest:
-	docker tag $(IMAGE) $(APP_NAME):latest
+run: db build run-api
 
-push:
-	docker tag $(IMAGE) dipakrasal2009/$(APP_NAME):v$(VERSION)
-	docker push dipakrasal2009/$(APP_NAME):v$(VERSION)
+stop:
+	docker compose down
 
+clean:
+	docker compose down -v
+
+logs:
+	docker compose logs -f
